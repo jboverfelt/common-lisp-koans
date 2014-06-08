@@ -23,22 +23,22 @@ error handling code from normal operational code."
 
 (define-test test-conditions-derive-from-types
     "conditions inherit from base types"
-  (true-or-false? ___ (typep (make-condition 'minimal-error-cond)
+  (true-or-false? t (typep (make-condition 'minimal-error-cond)
                              'minimal-error-cond))
 
-  (true-or-false? ___ (typep (make-condition 'minimal-error-cond)
+  (true-or-false? t (typep (make-condition 'minimal-error-cond)
                              'error))
 
-  (true-or-false? ___ (typep (make-condition 'minimal-error-cond)
+  (true-or-false? nil (typep (make-condition 'minimal-error-cond)
                              'warning))
 
-  (true-or-false? ___ (typep (make-condition 'minimal-warning-cond)
+  (true-or-false? t (typep (make-condition 'minimal-warning-cond)
                              'minimal-warning-cond))
 
-  (true-or-false? ___ (typep (make-condition 'minimal-warning-cond)
+  (true-or-false? nil (typep (make-condition 'minimal-warning-cond)
                              'error))
 
-  (true-or-false? ___ (typep (make-condition 'minimal-warning-cond)
+  (true-or-false? t (typep (make-condition 'minimal-warning-cond)
                              'warning)))
 
 
