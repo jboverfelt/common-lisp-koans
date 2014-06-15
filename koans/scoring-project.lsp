@@ -49,9 +49,31 @@
 ;
 ; Your goal is to write the score method.
 
+(defun build-table (dice)
+  (let ((results (make-hash-table :test #'equalp)))
+    (loop for die in dice do
+      (if (cadr (multiple-value-list (gethash die results)))
+        (setf (gethash die results) (incf (gethash die results)))
+        (setf (gethash die results) 1)))
+    results))
+
 (defun score (dice)
-  ; You need to write this method
-)
+  (let ((value-table (build-table dice))
+        (score 0))
+    (loop for result being the hash-keys of value-table
+          using (hash-value value) do
+      (when (and (= result 1) (>= value 3))
+        (incf score (+ 1000 (* 100 (- value 3)))))
+      (when (and (= result 1) (< value 3))
+        (incf score (* 100 value)))
+      (when (and (= result 5) (>= value 3))
+        (incf score (+ 500 (* 50 (- value 3)))))
+      (when (and (= result 5) (< value 3))
+        (incf score (* 50 value)))
+      (when (and (/= result 5) (/= result 1) (>= value 3))
+        (incf score (* 100 result))))
+    score))
+    
 
 (define-test test-score-of-an-empty-list-is-zero
     (assert-equal 0 (score nil)))
