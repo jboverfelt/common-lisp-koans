@@ -134,11 +134,8 @@
 (defmacro log-form-with-value (&body body)
   "records the body form, and the form's return value
    to the list *log-with-value* and then evalues the body normally"
-  `(let ((logform nil)
-         (retval ,@body))
-
-     ;; YOUR MACRO COMPLETION CODE GOES HERE.
-
+  `(let ((retval ,@body))
+     (push (list :form ',@body :value retval) *log-with-value*)
      retval))
 
 
